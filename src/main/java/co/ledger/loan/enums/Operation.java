@@ -11,6 +11,9 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.function.Supplier;
 
+/**
+ * Operations supported by ledger
+ */
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Getter

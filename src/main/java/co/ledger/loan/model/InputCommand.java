@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Model class for input command passed by the user
+ */
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Getter
@@ -20,12 +23,7 @@ public class InputCommand {
 
     public static InputCommand from(String command) throws InvalidInputException {
         List<String> commandSplit = new ArrayList<>(Arrays.asList(command.split("\\s+")));
-        Operation operation;
-        if(commandSplit.size() > 0) {
-            operation = Operation.valueOf(commandSplit.remove(0));
-        } else {
-            throw new InvalidInputException("Operation name not found.");
-        }
+        Operation operation = Operation.valueOf(commandSplit.remove(0));
         InputCommand inputCommand = new InputCommand(operation, commandSplit);
         validateCommand(inputCommand);
         return inputCommand;

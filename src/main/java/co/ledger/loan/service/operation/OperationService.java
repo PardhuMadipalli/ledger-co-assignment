@@ -1,6 +1,5 @@
 package co.ledger.loan.service.operation;
 
-import co.ledger.loan.dao.LedgerData;
 import co.ledger.loan.exception.InvalidInputException;
 import co.ledger.loan.model.LoanAccount;
 
@@ -11,11 +10,14 @@ import java.util.Map;
  * Interface for operation service
  */
 public interface OperationService {
-    public String executeOperation(List<String> arguments, LedgerData ledgerData) throws InvalidInputException;
+    String executeOperation(List<String> arguments, Map<String, Map<String, LoanAccount>> ledgerData)
+            throws InvalidInputException;
 
-    default LoanAccount getLoanAccount(String bankName, String customerName, LedgerData ledgerData)
+    default LoanAccount getLoanAccount(String bankName,
+                                       String customerName,
+                                       Map<String, Map<String, LoanAccount>> ledgerData)
             throws InvalidInputException {
-        Map<String, LoanAccount> bankData = ledgerData.getData().get(bankName);
+        Map<String, LoanAccount> bankData = ledgerData.get(bankName);
         if (bankData == null) {
             throw  new InvalidInputException("Invalid bank specified: " + bankName);
         }

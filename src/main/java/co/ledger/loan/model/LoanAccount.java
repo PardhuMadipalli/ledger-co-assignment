@@ -2,12 +2,17 @@ package co.ledger.loan.model;
 
 import co.ledger.loan.exception.InvalidInputException;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Model class to hold loan account details
+ */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Getter(AccessLevel.PACKAGE)
 public class LoanAccount {
     int initialLoanAmount;
     TreeMap<Integer, Integer> emiNumLumpsumAmount;
@@ -48,6 +53,8 @@ public class LoanAccount {
             emiNumLumpsumAmount.put(emiNum, lumpsum);
         } else if (lumpsum < 0) {
             throw new InvalidInputException("Invalid lumpsum amount: " + lumpsum);
+        } else {
+            // do nothing
         }
     }
 }
