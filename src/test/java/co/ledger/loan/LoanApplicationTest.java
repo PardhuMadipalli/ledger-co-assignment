@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,7 +36,10 @@ public class LoanApplicationTest {
         String[] mainArguments = new String[]{inputFilePath};
         LoanApplication.main(mainArguments);
         String outputFilePath = new File(getClass().getClassLoader().getResource(outputFile).getFile()).getAbsolutePath();
-        assertEquals(new String(Files.readAllBytes(Paths.get(outputFilePath))), outputStreamCaptor.toString().trim());
+        System.setOut(STANDARD_OUT);
+        List<String> actualLines = Arrays.asList(outputStreamCaptor.toString().trim().split(System.lineSeparator()));
+        List<String> expectedLines = Arrays.asList(new String(Files.readAllBytes(Paths.get(outputFilePath))).trim().split(System.lineSeparator()));
+        assertEquals(expectedLines, actualLines);
     }
 
     @Test
